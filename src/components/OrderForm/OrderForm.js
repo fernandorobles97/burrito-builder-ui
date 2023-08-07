@@ -1,11 +1,5 @@
 import { useState } from "react";
 
-
-// Iteration 3
-// Add functionality to enable form submission only when at least one ingredient and a name have been added to the order. If either of these two requirements is missing, the form should not be submittable. Upon successful submission, a POST request should be made to the server.
-
-// New orders should only be displayed on the page IF the POST request is successful. The user should see the new order displayed without the page refreshing. The new order should persist on the DOM after refreshing as well.
-
 function OrderForm({ addOrder }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
@@ -14,9 +8,9 @@ function OrderForm({ addOrder }) {
   function handleSubmit(e) {
     e.preventDefault();
     const newOrder = {
+      id: Date.now(),
       name: name, 
       ingredients: ingredients,
-      id: Date.now()
     }
     if (name && ingredients.length) {
       addOrder(newOrder)
@@ -62,8 +56,6 @@ function OrderForm({ addOrder }) {
       </button>
     );
   });
-
-  // console.log('ingredients',ingredients)
 
   return (
     <form>
