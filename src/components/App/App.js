@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import getOrders from "../../apiCalls";
+import { getOrders, postOrder } from "../../apiCalls";
 import Orders from "../../components/Orders/Orders";
 import OrderForm from "../../components/OrderForm/OrderForm";
 
@@ -23,6 +23,18 @@ function App() {
   const addOrder = (order) => {
     setNewOrder(order)
   }
+
+  console.log('new', newOrder)
+  console.log('orderData', orderData)
+
+  useEffect(() => {
+    if(newOrder) {
+      setOrderData([...orderData, newOrder])
+      postOrder(newOrder)
+      setNewOrder('')
+      .catch(err => alert(err))
+    }
+  }, [newOrder])
 
 
   return (
