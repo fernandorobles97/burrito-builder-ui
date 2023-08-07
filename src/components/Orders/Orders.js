@@ -3,7 +3,6 @@ import "./Orders.css";
 import OrderCard from "../OrderCard/OrderCard";
 
 const Orders = ({ orderData }) => {
-  console.log('order', orderData)
 
   const orderEls = orderData.map(order => <OrderCard key={order.id} order={order} />)
   // const orderEls = orderData.orders.map((order) => {
@@ -20,7 +19,7 @@ const Orders = ({ orderData }) => {
   // });
 
   return (
-    <section>
+    <section className="order-wrapper">
       {orderEls.length ? orderEls : <p>No orders yet!</p>}
     </section>
   );
