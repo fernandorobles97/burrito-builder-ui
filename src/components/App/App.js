@@ -1,22 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { getOrders } from "../../apiCalls";
 import Orders from "../../components/Orders/Orders";
 import OrderForm from "../../components/OrderForm/OrderForm";
 
 function App() {
+  const [orderData, setOrderData] = useState([])
+
   useEffect(() => {
-    getOrders().catch((err) => console.error("Error fetching:", err));
-  });
+    getOrders()
+    .then(data => setOrderData(data.orders))
+    .catch(err => alert(err))
+  }, []);
+
+  console.log('out',orderData)
 
   return (
     <main className="App">
       <header>
         <h1>Burrito Builder</h1>
-        <OrderForm />
+        <OrderForm  />
       </header>
 
-      <Orders orders={"Here is where orders go"} />
+      <Orders orderData={orderData} />
     </main>
   );
 }
