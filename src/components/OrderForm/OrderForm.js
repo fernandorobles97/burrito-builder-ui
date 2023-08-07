@@ -9,6 +9,7 @@ import { useState } from "react";
 function OrderForm({ addOrder }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
+  const [error, setError] = useState(false)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -17,8 +18,13 @@ function OrderForm({ addOrder }) {
       ingredients: ingredients,
       id: Date.now()
     }
-    addOrder(newOrder)
-    clearInputs();
+    if (name && ingredients.length) {
+      addOrder(newOrder)
+      clearInputs();
+      setError(false)
+    } else {
+      setError(true)
+    }
   }
 
   function clearInputs() {
@@ -57,7 +63,7 @@ function OrderForm({ addOrder }) {
     );
   });
 
-  console.log('ingredients',ingredients)
+  // console.log('ingredients',ingredients)
 
   return (
     <form>
@@ -73,7 +79,8 @@ function OrderForm({ addOrder }) {
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      <button type="submit" onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      {error && <h3>Please enter your first name and select at least one ingredient</h3>}
     </form>
   );
 }
