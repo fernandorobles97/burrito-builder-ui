@@ -1,22 +1,28 @@
 import React from "react";
 import "./Orders.css";
+import OrderCard from "../OrderCard/OrderCard";
 
-const Orders = (props) => {
-  const orderEls = props.orders.map((order) => {
-    return (
-      <div className="order">
-        <h3>{order.name}</h3>
-        <ul className="ingredient-list">
-          {order.ingredients.map((ingredient) => {
-            return <li>{ingredient}</li>;
-          })}
-        </ul>
-      </div>
-    );
-  });
+const Orders = ({ orderData }) => {
+  console.log('order', orderData)
+
+  const orderEls = orderData.map(order => <OrderCard key={order.id} order={order} />)
+  // const orderEls = orderData.orders.map((order) => {
+  //   return (
+  //     <div className="order">
+  //       <h3>{order.name}</h3>
+  //       <ul className="ingredient-list">
+  //         {order.ingredients.map((ingredient) => {
+  //           return <li>{ingredient}</li>;
+  //         })}
+  //       </ul>
+  //     </div>
+  //   );
+  // });
 
   return (
-    <section>{orderEls.length ? orderEls : <p>No orders yet!</p>}</section>
+    <section>
+      {orderEls.length ? orderEls : <p>No orders yet!</p>}
+    </section>
   );
 };
 
