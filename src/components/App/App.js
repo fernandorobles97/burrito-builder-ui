@@ -20,15 +20,12 @@ function App() {
     setNewOrder(order)
   }
 
-  console.log('new', newOrder)
-  console.log('orderData', orderData)
-
   useEffect(() => {
     if(newOrder) {
       setOrderData([...orderData, newOrder])
       postOrder(newOrder)
-      setNewOrder('')
       .catch(err => alert(err))
+      setNewOrder('')
     }
   }, [newOrder])
 
