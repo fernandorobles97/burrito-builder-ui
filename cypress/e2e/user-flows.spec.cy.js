@@ -17,8 +17,12 @@ describe('user flows', () => {
   it('should display a header, form, and 3 existing orders', () => {
     cy.wait('@getOrders').then((interception) => {
       cy.get('h1').contains('Burrito Builder')
-      .get('form').children().should('have.length', 15)
+      .get('input[placeholder="Name"]')
+      .get('button').should('have.length', 13)
+      .get('p').contains('Order: Nothing selected')
       .get('.order-wrapper').children().should('have.length', 3)
+      .get('.order-wrapper').children().first().contains('Pat')
+      .get('.order-wrapper').children().last().contains('Alex')
     })
   })
 
