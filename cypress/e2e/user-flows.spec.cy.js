@@ -36,4 +36,18 @@ describe('user flows', () => {
     })
   })
 
+    // Write a test to check that orders cannot be submitted without a name and at least one ingredient.
+    it('should let user know what they are missing to be able to submit an order', () => {
+      cy.wait('@getOrders').then((interception) => {
+        cy.get('input[type="text"]').type('Cat')
+        .get('button').contains('Submit Order').click()
+        .get('h3').contains('Please enter your first name and select at least one ingredient')
+        .get('input[type="text"]').clear()
+        .get('button').contains('beans').click()
+        .get('button').contains('lettuce').click()
+        .get('button').contains('Submit Order').click()
+        .get('h3').contains('Please enter your first name and select at least one ingredient')
+      })
+    })
+  
 })
